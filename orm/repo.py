@@ -1,10 +1,7 @@
 import orm.modelos as modelos
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
-<<<<<<< HEAD
 import orm.esquemas as esquemas 
-=======
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
 
 #----------------------PETICIONES ALUMNOS-----------------------------#
 #SELECT * FROM app.alumnos
@@ -17,9 +14,8 @@ def lista_alumno(sesion:Session): #Mediante la Session se pueden hacer consultas
 def alumno_por_id(sesion:Session,id_alumno:int): #Mediante la Session se pueden hacer consultas
     print("SELECT * FROM app.alumnos WHERE id=", id_alumno)
     #Que tabla quiero utilizar, y se aplica un filtro ya que solo quiero que me muestre uno y que sea por id
-    return sesion.query(modelos.Alumno).filter(modelos.Alumno.id==id_alumno).first() #se devuelve un objeto de tipo usalumno
-<<<<<<< HEAD
-#----------------------RES-2-----------------------------#
+    return sesion.query(modelos.Alumno).filter(modelos.Alumno.id==id_alumno).first() #se devuelve un objeto de tipo alumno
+#----------------------RES2-----------------------------#
 #POST '/alumnos'
 #Insertar alumno
 def insertar_alumno(sesion:Session, alumno_nuevo:esquemas.AlumnoBase):
@@ -66,9 +62,6 @@ def actualiza_alumno(sesion:Session, id_alumno:int,alumno_actualizado:esquemas.A
         respuesta = {"mensaje":"No existe el alumno"}
         return respuesta
     
-=======
-
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
 #----------------------PETICIONES FOTO-----------------------------#
 #SELECT * FROM app.fotos
 #GET '/fotos'
@@ -81,8 +74,8 @@ def foto_por_id(sesion:Session,id_foto:int):
     print("SELECT * FROM app.fotos WHERE id=", id_foto)
     return sesion.query(modelos.Foto).filter(modelos.Foto.id==id_foto).first() 
 
-<<<<<<< HEAD
-#----------------------RES-2-----------------------------#
+
+#----------------------RES2-----------------------------#
 #PUT '/fotos/{id}'
 #Actualizar datos de fotos
 def actualiza_foto(sesion:Session, id_foto:int,foto_actualizada:esquemas.FotoBase):
@@ -104,8 +97,7 @@ def actualiza_foto(sesion:Session, id_foto:int,foto_actualizada:esquemas.FotoBas
         respuesta = {"mensaje":"No existe la foto"}
         return respuesta
     
-=======
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
+
 #----------------------PETICIONES CALIFICACIONES-----------------------------#
 #SELECT * FROM app.calificaciones
 #GET '/calificaciones'
@@ -118,8 +110,7 @@ def calificacion_por_id(sesion:Session,id_calificacion:int):
     print("SELECT * FROM app.calificaciones WHERE id=", id_calificacion)
     return sesion.query(modelos.Calificacion).filter(modelos.Calificacion.id==id_calificacion).first() 
 
-<<<<<<< HEAD
-#----------------------RES-2-----------------------------#
+#----------------------RES2-----------------------------#
 #PUT '/calificaciones/{id}'
 #Actualizar datos de calificaciones
 def actualiza_calificacion(sesion:Session, id_calificacion:int,calificacion_actualizada:esquemas.CalificacionBase):
@@ -139,8 +130,7 @@ def actualiza_calificacion(sesion:Session, id_calificacion:int,calificacion_actu
     else:
         respuesta = {"mensaje":"No existe la calificacion"}
         return respuesta
-=======
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
+
 #----------------------PETICIONES OTROS-----------------------------#
 #SELECT * FROM app.fotos WHERE id_alumno={id_al}
 #GET '/alumnos/{id}/fotos'
@@ -157,8 +147,8 @@ def calificaciones_por_id_foto(sesion:Session, id_foto:int):
 def calificaciones_por_id_alumno(sesion:Session, id_alumno:int):
     print("SELECT * FROM app.calificaciones WHERE id_alumnos= ",id_alumno)
     return sesion.query(modelos.Calificacion).filter(modelos.Calificacion.id==id_alumno).all()
-<<<<<<< HEAD
-#----------------------RES-2-----------------------------#
+
+#----------------------RES2-----------------------------#
 #POST("/alumnos/{id}/calificaciones")
 #Insertar una nueva calificacion al alumno existente
 def insertar_cal_alumno(sesion:Session, id_alumno:int, cal_por_alumno:esquemas.CalificacionBase):
@@ -193,33 +183,27 @@ def insertar_foto_alumno(sesion:Session, id_alumno:int, foto_por_alumno:esquemas
     #5. Hacemos un refresh
     sesion.refresh(foto_alumno_bd)
     return foto_alumno_bd
-=======
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
+
 
 #----------------------DELETE-----------------------------#
 #DELETE FROM app.alumnos WHERE id_alumnos={id_al}
 #DELETE '/alumnos/{id}/alumnos'
 def borrar_alumno_por_id_alumno(sesion:Session, id_alumno:int):
-<<<<<<< HEAD
     print("DELETE FROM app.alumnos WHERE id_alumnos= ",id)
-=======
     print("DELETE FROM app.alumnos WHERE id_alumnos= ",id_alumno)
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
     #1. Primero hacemos un SELECT para ver si existe el id alumno lo que deviuelve se guarda en una variable para saber si existe 
     alumnos_alum = alumno_por_id(sesion, id_alumno) #Devuelve una lista de objetos
     #2. Borramos
     if alumnos_alum is not None:
-<<<<<<< HEAD
         sesion.delete(alumnos_alum)
     sesion.commit()
     respuesta = {
         "mensaje": "alumno eliminado"
     }
-=======
-        for alumno_alumno in alumnos_alum: 
-            sesion.delete(alumno_alumno)
+    for alumno_alumno in alumnos_alum: 
+        sesion.delete(alumno_alumno)
     sesion.commit()
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
+
 #DELETE FROM app.calificaciones WHERE id_alumnos={id_al}
 #DELETE '/alumnos/{id}/calificaciones'
 def borrar_calificcion_por_id_alumno(sesion:Session, id_alumno:int):
@@ -263,9 +247,4 @@ def borrar_calificacion_por_id_calificacion(sesion:Session, id_calificacion:int)
     if calificaciones_cal is not None:
         for calificacion_cal in calificaciones_cal: 
             sesion.delete(calificacion_cal)
-<<<<<<< HEAD
     sesion.commit()
-
-=======
-    sesion.commit()
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8

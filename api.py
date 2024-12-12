@@ -4,10 +4,8 @@ from pydantic import BaseModel
 import shutil
 import os
 import uuid
-<<<<<<< HEAD
 import orm.esquemas as esquemas
-=======
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
+
 
 from sqlalchemy.orm import Session
 from orm.config import generador_sesion #generador de sesiones
@@ -31,8 +29,8 @@ def lista_alumno(sesion:Session=Depends(generador_sesion)):
 def alumno_por_id(id_alumno: int, sesion:Session=Depends(generador_sesion)): #Es obligatorio mandar el id
     print("Api consultando alumno por id")
     return repo.alumno_por_id(sesion, id_alumno) #manda el objeto alumno pero lo convierte a .json
-<<<<<<< HEAD
-#----------------------RES-2-----------------------------#
+
+#----------------------RES2-----------------------------#
 #Insertar alumno
 #POST '/alumnos'
 @app.post("/alumnos")
@@ -47,9 +45,7 @@ def insertar_alumno(alumno:esquemas.AlumnoBase, sesion:Session=Depends(generador
 def actualizar_alumno(id:int, info_alumno:esquemas.AlumnoBase, sesion:Session=Depends(generador_sesion)):
     repo.actualiza_alumno(sesion,id,info_alumno)   
     return repo.actualiza_alumno(sesion,id,info_alumno)
-=======
 
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
 #----------------------FOTOS---------------------------------#
 #Fotos
 #SELECT * FROM app.fotos
@@ -66,8 +62,7 @@ def foto_por_id(id: int, sesion:Session=Depends(generador_sesion)):
     print("Api consultando foto por id")
     return repo.foto_por_id(sesion, id) 
 
-<<<<<<< HEAD
-#----------------------RES-2-----------------------------#
+#----------------------RES2-----------------------------#
 #Actualizar datos de foto
 #PUT '/fotos/{id}'
 @app.put("/fotos/{id}")
@@ -75,8 +70,6 @@ def actualizar_foto(id:int, info_foto:esquemas.FotoBase, sesion:Session=Depends(
     repo.actualiza_foto(sesion,id,info_foto)   
     return repo.actualiza_foto(sesion,id,info_foto)
 
-=======
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
 #----------------------CALIFICACIONES---------------------------------#
 #Calificaciones
 #SELECT * FROM app.calificaciones
@@ -93,8 +86,7 @@ def calificacion_por_id(id: int, sesion:Session=Depends(generador_sesion)):
     print("Api consultando calificacion por id")
     return repo.calificacion_por_id(sesion, id) 
 
-<<<<<<< HEAD
-#----------------------RES-2-----------------------------#
+#----------------------RES2-----------------------------#
 #Actualizar datos de calificacion
 #PUT '/calificaciones/{id}'
 @app.put("/calificaciones/{id}")
@@ -102,8 +94,7 @@ def actualizar_calificacion(id:int, info_calificacion:esquemas.CalificacionBase,
     repo.actualiza_calificacion(sesion,id,info_calificacion)   
     return repo.actualiza_calificacion(sesion,id,info_calificacion)
 
-=======
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
+
 #----------------------OTROS---------------------------------#
 #Buscar fotos por id alumno
 #SELECT * FROM app.fotos WHERE id_alumno={id_alumno}
@@ -127,8 +118,7 @@ def calificaciones_por_id_alumno(id:int,sesion:Session=Depends(generador_sesion)
     print("Api consultando calificaciones por id_alumno", id)
     return repo.calificaciones_por_id_alumno(sesion,id)
 
-<<<<<<< HEAD
-#----------------------RES-2-----------------------------#
+#----------------------RES2-----------------------------#
 #POST("/alumnos/{id}/calificaciones")
 #Insertar una nueva calificacion al alumno existente
 @app.post("/alumnos/{id}/calificaciones")
@@ -141,18 +131,12 @@ def inserta_cal_alumno(id_alumno:int, calificacion:esquemas.CalificacionBase, se
 def inserta_foto_alumno(id_alumno:int, foto:esquemas.FotoBase, sesion:Session=Depends(generador_sesion)):
     return repo.insertar_foto_alumno(sesion, id_alumno, foto)
 
-=======
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
 #----------------------DELETE---------------------------------#
 #Borrar alumno por id alumno
 #DELETE FROM app.alumnos WHERE id_alumnos={id_al}
 #DELETE '/alumnos/{id}/alumnos'
 @app.delete("/alumnos/{id}")
-<<<<<<< HEAD
 def borrar_alumno(id:int, sesion:Session=Depends(generador_sesion)):
-=======
-def borrar_usuario(id:int, sesion:Session=Depends(generador_sesion)):
->>>>>>> 0f9377d59a515054e9bb80f4c90ee35d849a8fe8
     repo.borrar_alumno_por_id_alumno(sesion,id)   
     return {"alumno_borrado", "ok"}
 #Borrar calificacion por id alumno
