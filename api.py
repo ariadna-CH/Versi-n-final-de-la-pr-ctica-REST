@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from orm.config import generador_sesion #generador de sesiones
 #Funciones para hacer las consultas a la BD
 import orm.repo as repo #El as repo es un alias 
+import orm.esquemas as esquemas
 
 #Creación del servidor
 app = FastAPI()
@@ -27,6 +28,23 @@ def alumno_por_id(id_alumno: int, sesion:Session=Depends(generador_sesion)): #Es
     print("Api consultando alumno por id")
     return repo.alumno_por_id(sesion, id_alumno) #manda el objeto alumno pero lo convierte a .json
 
+#----------------------RES2-----------------------------#
+#Insertar alumno
+#POST '/alumnos'
+@app.post("/alumnos")
+def insertar_alumno(alumno:esquemas.AlumnoBase, sesion:Session=Depends(generador_sesion)):
+    print(alumno)
+    #Guardado en la base}
+    return repo.insertar_alumno(sesion, alumno)
+
+#Actualizar datos de un alumno
+#PUT '/alumnos/{id}'
+@app.put("/alumno/{id}")
+def actualizar_alumno(id:int, info_alumno:esquemas.AlumnoBase, sesion:Session=Depends(generador_sesion)):
+    repo.actualiza_alumno(sesion,id,info_alumno)   
+    return repo.actualiza_alumno(sesion,id,info_alumno)
+
+
 #----------------------FOTOS---------------------------------#
 #Fotos
 #SELECT * FROM app.fotos
@@ -43,6 +61,15 @@ def foto_por_id(id: int, sesion:Session=Depends(generador_sesion)):
     print("Api consultando foto por id")
     return repo.foto_por_id(sesion, id) 
 
+#----------------------RES2-----------------------------#
+#Actualizar datos de foto
+#PUT '/fotos/{id}'
+@app.put("/fotos/{id}")
+def actualizar_foto(id:int, info_foto:esquemas.FotoBase, sesion:Session=Depends(generador_sesion)):
+    repo.actualiza_foto(sesion,id,info_foto)   
+    return repo.actualiza_foto(sesion,id,info_foto)
+
+
 #----------------------CALIFICACIONES---------------------------------#
 #Calificaciones
 #SELECT * FROM app.calificaciones
@@ -58,6 +85,14 @@ def lista_calificacion(sesion:Session=Depends(generador_sesion)):
 def calificacion_por_id(id: int, sesion:Session=Depends(generador_sesion)): 
     print("Api consultando calificacion por id")
     return repo.calificacion_por_id(sesion, id) 
+
+#----------------------RES2-----------------------------#
+#Actualizar datos de calificacion
+#PUT '/calificaciones/{id}'
+@app.put("/calificaciones/{id}")
+def actualizar_calificacion(id:int, info_calificacion:esquemas.CalificacionBase, sesion:Session=Depends(generador_sesion)):
+    repo.actualiza_calificacion(sesion,id,info_calificacion)   
+    return repo.actualiza_calificacion(sesion,id,info_calificacion)
 
 #----------------------OTROS---------------------------------#
 #Buscar fotos por id alumno
@@ -81,6 +116,19 @@ def calificaciones_por_id_foto(id:int,sesion:Session=Depends(generador_sesion)):
 def calificaciones_por_id_alumno(id:int,sesion:Session=Depends(generador_sesion)):
     print("Api consultando calificaciones por id_alumno", id)
     return repo.calificaciones_por_id_alumno(sesion,id)
+
+#----------------------RES2-----------------------------#
+#POST("/alumnos/{id}/calificaciones")
+#Insertar una nueva calificacion al alumno existente
+@app.post("/alumnos/{id}/calificaciones")
+def inserta_cal_alumno(id_alumno:int, calificacion:esquemas.CalificacionBase, sesion:Session=Depends(generador_sesion)):
+    return repo.insertar_cal_alumno(sesion, id_alumno, calificacion)
+
+#POST("/alumnos/{id}/fotos")
+#Insertar una nueva foto al alumno existente
+@app.post("/alumnos/{id}/fotos")
+def inserta_foto_alumno(id_alumno:int, foto:esquemas.FotoBase, sesion:Session=Depends(generador_sesion)):
+    return repo.insertar_foto_alumno(sesion, id_alumno, foto)
 
 #----------------------DELETE---------------------------------#
 #Borrar alumno por id alumno
